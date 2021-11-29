@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\author{Leander van Beek}
+\title{Smallest Multiple}
+
+\newcommand{\desda}{\textbf{if and only if} }
+
+\begin{document}
+
+\maketitle
+
+\textbf{Problem:} 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder. What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+To clarify: when a number $n \in \mathds{N}$ is evenly divisible by a number $m \in \mathds{N}$, that means that $n\%m = 0$.\\
+
+\section{Brute force solution}
+To check what is the first number that is evenly divisible by the numbers in the list $L = {1, 2, \cdots, n}$, one can simply start at $n+1$, divide by all numbers in $L$, and see if there is a nonzero remainder. If this is the case, add one to the number that is checked for and try again.\\
+
+To optimize the algorithm, the division by $1$ is obviously skipped. Another consideration is whether to start checking from the smaller or the larger side of $L$, or check them all at the same time by making use of vector objects like numpy arrays. Consider the following. As every second number is evenly divisible by 2, every third number is evenly divisible by 3, every $k$'th number is evenly divisble by $k$, it makes sense to start checking from the higher end of $L$. Of course, the process is stopped whenever the first non-evenly division is found. Vector operations hence have no place here. Finally, it is not required to check all the numbers in the list of divisors. If a number is divisible by $18$ for instance, it is also always divisible by $9$, $6$, and $3$. Going back from $20$ for this particular problem until a point is reached where no `new' divisors are added, the following set is the result. ${20, 19, 18, 17, 16, 15, 14, 13, 12, 11}$.\\
+
+The problem can now be solved by having every number larger than $L$ divided by the list. Given enough time, this is a correct approach. The problem is that `enough time' in this case will take up a lot of time. For the case where we check if our code works for the numbers $1$ through $10$, the solution is found within a second. For $20$, it did not complete within 15 minutes.
+
+\section{The clever approach}
+To find the least common multiple, it is possible to make use of the prime decomposition of the numbers in consideration. Because every number is decomposable as a product of prime numbers, the least common multiple is simply the product of the largest power of a prime number found in the prime representation of all numbers under consideration. For example: taken the numbers $48 = 2^4 \cdot 3$ and $64 = 2^5$, the least common multiple is $2^5 \cdot 3 = 192$. This has to be true, as the least common multiple needs to be evenly dividable by exactly highest power of a prime in the decompositions, as otherwise it will not be dividable by the corresponding number. If there are other representations having a smaller power of that prime, that's not a problem - it only has to be evenly dividable, which is the case if there is an integer amount of the divisor left.\\
+
+For the case of $20$, that means the decomposition of all numbers ${1, ..., 20}$ is required - a humanly achievable task. Computing the product of the largest power of the primes untill $20$ results in the solution, which is
+
+\begin{equation}
+lcm({1, ..., 20}) = 2^4 \cdot 3^2 \cdot 5 \cdot 6 \cdot 11 \cdot 13 \cdot 17 \cdot 19 = 232\ 792\ 560
+\label{eq:solution}
+\end{equation}
+
+Which solves our problem. No computer needed, just a pen and a piece of paper!
+
+\end{document}

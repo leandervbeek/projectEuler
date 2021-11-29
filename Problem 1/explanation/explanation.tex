@@ -1,0 +1,34 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\author{Leander van Beek}
+\title{Multiples of 3 or 5}
+
+\newcommand{\desda}{\textbf{if and only if} }
+
+\begin{document}
+
+\maketitle
+
+\textbf{Problem:} 
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.\\
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section{Solution}
+
+This problem is straight forward. Write a script that checks whether a number between $1$ and $1000$ is divisible by $3$ or $5$, and if it is, store it in a list. This can be easily checked by the making use of the $\mod$-operator. When reaching 1000, sum up the contents of the list.\\
+
+\textbf{Solution:} 234168
+
+
+\end{document}
